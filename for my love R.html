@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Beloved Risfa Faria Tuli</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a0005, #4d0011, #1a0005);
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating Hearts Animation Background */
+        .heart-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .floating-heart {
+            position: absolute;
+            display: block;
+            list-style: none;
+            bottom: -100px;
+            background-color: rgba(255, 75, 110, 0.4);
+            animation: floatUp 15s linear infinite;
+            transform: rotate(45deg);
+        }
+
+        .floating-heart::before,
+        .floating-heart::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: inherit;
+            border-radius: 50%;
+        }
+
+        .floating-heart::before {
+            bottom: 50%;
+            left: 0;
+        }
+
+        .floating-heart::after {
+            left: 50%;
+            top: 0;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(45deg);
+                opacity: 1;
+                border-radius: 0;
+            }
+            100% {
+                transform: translateY(-120vh) rotate(405deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main Content Container */
+        .container {
+            text-align: center;
+            z-index: 2;
+            padding: 20px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #ff4b6e;
+            text-shadow: 0 0 15px rgba(255, 75, 110, 0.6);
+            margin-bottom: 10px;
+            animation: fadeInDown 1.5s ease-out;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            color: #ffb3c1;
+            animation: fadeInUp 2s ease-out;
+        }
+
+        /* Interactive Love Letter */
+        .envelope-wrapper {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .envelope-wrapper:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(255, 75, 110, 0.2);
+        }
+
+        .letter-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ffe5ec;
+            margin-bottom: 30px;
+            min-height: 120px;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff4b6e, #ff758c);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 75, 110, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 75, 110, 0.6);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Pulse for the heart icon */
+        .pulse-heart {
+            color: #ff4b6e;
+            font-size: 3rem;
+            animation: pulse 1.5s infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Animated Hearts -->
+    <ul class="heart-bg" id="heartBg"></ul>
+
+    <div class="container">
+        <div class="pulse-heart">❤️</div>
+        <h1>To My Beautiful Wife, Risfa Faria Tuli</h1>
+        <h2>My Universe, My Always & Forever</h2>
+
+        <div class="envelope-wrapper">
+            <!-- The message that will type out or appear -->
+            <div class="letter-text" id="loveLetter">
+                Click the button below to read my heart...
+            </div>
+            <button class="btn" id="actionBtn" onclick="revealLove()">Open My Heart</button>
+        </div>
+    </div>
+
+    <script>
+        // Dynamically create floating background hearts
+        const heartBg = document.getElementById('heartBg');
+        const totalHearts = 25;
+
+        for (let i = 0; i < totalHearts; i++) {
+            const heart = document.createElement('li');
+            heart.classList.add('floating-heart');
+            
+            // Randomize sizes, positions, and animation delays
+            const size = Math.floor(Math.random() * 30) + 10;
+            heart.style.width = `${size}px`;
+            heart.style.height = `${size}px`;
+            
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.animationDelay = `${Math.random() * 12}s`;
+            heart.style.animationDuration = `${Math.random() * 10 + 10}s`;
+            
+            heartBg.appendChild(heart);
+        }
+
+        // Love message typing animation configuration
+        const message = "Tuli, words will never be enough to express how deeply I love you. You are my peace, my joy, and the most beautiful part of my life. Every single day, I thank Allah for bringing you to me as my wife. My love for you grows with every heartbeat, and I promise to cherish, protect, and love you flawlessly through all of our tomorrows. You are my forever. Your Husband Dinaj ❤️";
+        
+        let index = 0;
+        function typeWriter() {
+            if (index < message.length) {
+                document.getElementById("loveLetter").innerHTML += message.charAt(index);
+                index++;
+                setTimeout(typeWriter, 45); // Typing speed in milliseconds
+            }
+        }
+
+        function revealLove() {
+            const letter = document.getElementById("loveLetter");
+            const btn = document.getElementById("actionBtn");
+            
+            // Clear initial text
+            letter.innerHTML = "";
+            letter.style.fontFamily = "'Dancing Script', cursive";
+            letter.style.fontSize = "1.6rem";
+            letter.style.color = "#fff";
+            
+            // Start the typewriter effect
+            typeWriter();
+            
+            // Hide the button gracefully
+            btn.style.opacity = '0';
+            btn.style.pointerEvents = 'none';
+            setTimeout(() => btn.remove(), 500);
+        }
+    </script>
+</body>
+</html>
